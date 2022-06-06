@@ -1,5 +1,7 @@
 import pandas as pd
+import datetime
 def PCA(data, dims_rescaled_data=2):
+    tstart = datetime.datetime.now()
     import numpy as NP
     from scipy import linalg as LA
     m, n = data.shape
@@ -10,6 +12,9 @@ def PCA(data, dims_rescaled_data=2):
     evecs = evecs[:,idx]
     evals = evals[idx]
     evecs = evecs[:, :dims_rescaled_data]
+    tend = datetime.datetime.now()
+    delta=tend-tstart
+    print(delta)
     return NP.dot(evecs.T, data.T).T, evals, evecs
 
 def plot_pca(data):
@@ -22,4 +27,5 @@ def plot_pca(data):
     MPL.show()
 
 data = pd.read_csv("eegData.csv",header=None)
+
 plot_pca(data)
